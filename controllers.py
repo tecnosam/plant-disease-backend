@@ -1,10 +1,12 @@
 from pymongo import MongoClient
 
 
-client = MongoClient()
+uri = "mongodb+srv://kopal:isaac1023@cluster0.tsyn9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+client = MongoClient(uri)
 
 
-db = client['sarah-brain-tumor-detector']
+db = client['joy-plant-disease']
 
 
 
@@ -19,23 +21,46 @@ def login(email, password):
 
     if not user:
 
-        return False
+        return None
 
-    return check_password(user['password'], password)
+    if not check_password(user['password'], password):
+        return None
+
+    user.pop('_id')
+    user.pop('password')
+
+    if 'role' not in user:
+        user['role'] = 'user'
+
+    print("Role", user)
+    return user
+
+
+def edit_profile(email, data) -> bool:
+
+    db['users'].update_one(
+        {'email': email},
+        {'$set': data}
+    )
+
+    return True
 
 
 def signup(**user_details):
+
+    if 'role' not in user_details:
+        user_details['role'] = 'user'
 
     db['users'].insert_one(user_details)
     return True
 
 
-def get_results():
+def get_results(collection='results'):
 
-    return list(db['results'].find({}, {'_id': 0}))
+    return list(db[collection].find({}, {'_id': 0}))
 
 
-def register_results(data):
+def register_results(data, collection='results'):
 
-    db['results'].insert_one(data)
+    db[collection].insert_one(data)
     return True
