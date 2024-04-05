@@ -7,6 +7,6 @@ numpy==1.21.5
 pillow==9.2.0
 
 uvicorn==0.28.0
-tensorflow==2.11.0
+# tensorflow==2.11.0
 
-tensorflow_hub
+# tensorflow_hub
