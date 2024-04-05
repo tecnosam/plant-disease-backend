@@ -1,4 +1,6 @@
 fastapi==0.110.0
+python-multipart
+
 pymongo==3.12.0
 pymongo[srv]
 numpy==1.21.5
