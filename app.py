@@ -19,9 +19,9 @@ from pydantic import BaseModel, Field
 
 from PIL import Image
 
-import tensorflow as tf
+# import tensorflow as tf
 
-import tensorflow_hub as hub
+# import tensorflow_hub as hub
 
 from controllers import (
     login,
